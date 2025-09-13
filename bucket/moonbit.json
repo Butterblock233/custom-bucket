@@ -1,0 +1,36 @@
+{
+    "version": "latest",
+    "description": "MoonBit programming language toolchain for Windows",
+    "homepage": "https://www.moonbitlang.com/",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://cli.moonbitlang.cn/binaries/latest/moonbit-windows-x86_64.zip",
+            "bin": [
+                "bin\\moon.exe"
+            ]
+        }
+    },
+    "post_install": [
+        "Write-Output '\nInstalling moonbit and building core library'",
+        "$MoonHome = \"$env:USERPROFILE\\.moon\"",
+        "New-Item -ItemType Directory -Path \"$MoonHome\" -Force | Out-Null",
+        "Invoke-WebRequest -Uri \"https://cli.moonbitlang.cn/cores/core-latest.zip\" -OutFile \"$MoonHome\\core.zip\"",
+        "Expand-Archive \"$MoonHome\\core.zip\" -DestinationPath \"$MoonHome\\lib\" -Force",
+        "Remove-Item \"$MoonHome\\core.zip\"",
+        "Push-Location \"$MoonHome\\lib\\core\"",
+        "moon bundle --all",
+        "moon bundle --target wasm-gc --quiet",
+        "Pop-Location"
+    ],
+    "uninstaller": {
+        "script": [
+            "$MoonHome = \"$env:USERPROFILE\\.moon\"",
+            "if (Test-Path \"$MoonHome\") { Remove-Item -Recurse -Force \"$MoonHome\" }"
+        ]
+    },
+    "env_add_path": [
+        "bin"
+    ],
+    "notes": "MoonBit uses ~/.moon/lib/core as its standard library.\nTo enable shell completions, run 'moon shell-completion --help'.\nTo verify binaries: https://www.moonbitlang.com/download#verifying-binaries"
+}
