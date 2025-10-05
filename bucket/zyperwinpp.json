@@ -1,0 +1,21 @@
+{
+    "version": "4.0",
+    "description": "ZyperWin++是一个轻便的Windows优化工具,适用于Win7-Win11最新版的优化,包括性能优化、服务项优化、垃圾清理等操作,还支持系统激活和Office快速安装。",
+    "homepage": "https://github.com/ZyperWave/ZyperWinOptimize",
+    "license": {
+        "identifier": "Freeware",
+        "url": "https://github.com/ZyperWave/ZyperWinOptimize"
+    },
+    "url": "https://github.com/ZyperWave/ZyperWinOptimize/releases/download/v4.0/ZyperWin++4.0.zip",
+    "hash": "3b0511382fb6b0344d79305271c5c08bd72d1f857815a91e3c89ffff563247d9",
+    "extract_dir": "Release",
+    "bin": "ZyperWin++.exe",
+    "checkver": {
+        "github": "https://github.com/ZyperWave/ZyperWinOptimize",
+        "regex": "v([\\d.]+)"
+    },
+    "shortcuts": [["ZyperWin++.exe", "ZyperWin++"]],
+    "autoupdate": {
+        "url": "https://github.com/ZyperWave/ZyperWinOptimize/releases/download/v$version/ZyperWin++$version.zip#/dl.7z"
+    }
+}
